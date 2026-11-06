@@ -30,6 +30,7 @@ status-website:
   name: CTCtruth status
   introTitle: CTCtruth status
   introMessage: Live checks of the CTCtruth website and recruiter portal.
+  baseUrl: /ctctruth-status
   # Served from GitHub Pages at https://OWNER.github.io/REPO/ unless you add a cname.
 
 commitMessages:
