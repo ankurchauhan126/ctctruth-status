@@ -1,31 +1,36 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Upptime configuration for the CTCtruth status page.
+# Copy this file to the root of the public status repository (see README.md) and replace
+# OWNER and REPO. Nothing in it is secret.
+owner: OWNER
+repo: REPO
 
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  - name: Portal sign-in
+    url: https://app.ctctruth.com/signin
+    expectedStatusCodes:
+      - 200
+  - name: Marketing site
+    url: https://ctctruth.com/
+    expectedStatusCodes:
+      - 200
+  # A neutral offer link: 43 "A" characters is a well-formed token that no offer uses, so the portal
+  # answers 200 with its "Link not valid" page. It reads no offer and no salary.
+  # The text check is a Upptime option; see the README note.
+  - name: Candidate offer link
+    url: https://app.ctctruth.com/o/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    expectedStatusCodes:
+      - 200
+    __dangerous__body_down_if_text_missing: Link not valid
+
+# Run each check every 5 minutes (GitHub's shortest schedule).
+workflowSchedule:
+  uptime: "*/5 * * * *"
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
-  navbar:
-    - title: Status
-      href: /
-    - title: GitHub
-      href: https://github.com/$OWNER/$REPO
+  name: CTCtruth status
+  introTitle: CTCtruth status
+  introMessage: Live checks of the CTCtruth website and recruiter portal.
+  # Served from GitHub Pages at https://OWNER.github.io/REPO/ unless you add a cname.
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
+commitMessages:
+  statusChange: "$EMOJI $SITE_NAME is $STATUS ($RESPONSE_CODE in $RESPONSE_TIME ms) [skip ci] [$STATUS_PAGE_NAME]"
